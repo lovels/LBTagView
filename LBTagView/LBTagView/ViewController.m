@@ -17,6 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor lightGrayColor];
     // Do any additional setup after loading the view, typically from a nib.
     NSArray *array = @[@"hello,I am tagView one",
                        @"hello,I am tagView two",
