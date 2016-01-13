@@ -24,4 +24,6 @@
 
 @property (nonatomic, strong) UIColor *circlrShadowColor; //default [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7]
 
+@property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer; //tap action
+
 @end

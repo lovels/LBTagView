@@ -158,6 +158,7 @@
 
 - (void)setTextColor:(UIColor *)textColor
 {
+    _textColor = textColor;
     _textLabel.textColor = textColor;
 }
 
@@ -169,17 +170,28 @@
 
 - (void)setBackgroundColor:(UIColor *)backgroundColor
 {
+    _backgroundColor = backgroundColor;
     _textLabel.backgroundColor = backgroundColor;
 }
 
 - (void)setCirclrColor:(UIColor *)circlrColor
 {
+    _circlrColor = circlrColor;
     _circleView.backgroundColor = circlrColor;
 }
 
 - (void)setCirclrShadowColor:(UIColor *)circlrShadowColor
 {
+    _circlrShadowColor = circlrShadowColor;
     _circleLayer.backgroundColor = circlrShadowColor.CGColor;
+}
+
+- (void)setTapGestureRecognizer:(UITapGestureRecognizer *)tapGesture
+{
+    if ([tapGesture isKindOfClass:[UITapGestureRecognizer class]]) {
+        _tapGestureRecognizer = tapGesture;
+        [self addGestureRecognizer:tapGesture];
+    }
 }
 
 #pragma mark ----touch event
