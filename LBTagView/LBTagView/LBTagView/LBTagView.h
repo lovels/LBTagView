@@ -10,20 +10,28 @@
 
 @interface LBTagView : UIView
 
-@property (nonatomic, assign) BOOL canMove; //can be moved
+//is can be moved
+@property (nonatomic, assign) BOOL canMove;
 
+//text
 @property (nonatomic, copy) NSString *text;
 
-@property (nonatomic, strong) UIColor *textColor; //default [UIColor whiteColor]
+//default [UIColor whiteColor]
+@property (nonatomic, strong) UIColor *textColor;
 
-@property (nonatomic, strong) UIFont *font; //default [UIFont systemFontOfSize:12]
+//default [UIFont systemFontOfSize:12]
+@property (nonatomic, strong) UIFont *font;
 
-@property (nonatomic, strong) UIColor *backgroundColor; //default [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5]
+//default [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5]
+@property (nonatomic, strong) UIColor *backgroundColor;
 
-@property (nonatomic, strong) UIColor *circlrColor; //default [UIColor colorWithRed:1 green:1 blue:1 alpha:0.8]
+//default [UIColor colorWithRed:1 green:1 blue:1 alpha:0.8]
+@property (nonatomic, strong) UIColor *circlrColor;
 
-@property (nonatomic, strong) UIColor *circlrShadowColor; //default [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7]
+//default [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7]
+@property (nonatomic, strong) UIColor *circlrShadowColor;
 
-@property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer; //tap action
+//tap action
+@property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
 
 @end
