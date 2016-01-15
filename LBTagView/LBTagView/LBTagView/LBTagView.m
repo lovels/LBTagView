@@ -55,8 +55,6 @@
     self.font = [UIFont systemFontOfSize:12];
     self.circlrColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.8];
     self.circlrShadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
-    
-    
 }
 
 - (UILabel *)textLabel
