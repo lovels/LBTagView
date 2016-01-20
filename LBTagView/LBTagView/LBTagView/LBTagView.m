@@ -78,14 +78,6 @@
     CGFloat angleWidth = 10;
     UIBezierPath  * path =  [ UIBezierPath  new ];
     switch (self.direction) {
-        case LBTagDirectionLeft:
-            [path moveToPoint :( CGPoint ) { angleWidth ,  0 }];
-            [path addLineToPoint :( CGPoint ) { 0, CGRectGetHeight(label.frame)/2.0}];
-            [path addLineToPoint :( CGPoint ) { angleWidth, CGRectGetHeight(label.frame)}];
-            [path addLineToPoint :( CGPoint ) { CGRectGetWidth(label.frame), CGRectGetHeight(label.frame)}];
-            [path addLineToPoint :( CGPoint ) { CGRectGetWidth(label.frame), 0}];
-            [path addLineToPoint :( CGPoint ) { angleWidth, 0}];
-            break;
         case LBTagDirectionRight:
             [path moveToPoint :( CGPoint ) { 0 ,  0 }];
             [path addLineToPoint :( CGPoint ) { 0, CGRectGetHeight(label.frame)}];
@@ -94,10 +86,16 @@
             [path addLineToPoint :( CGPoint ) { CGRectGetWidth(label.frame) - angleWidth, 0}];
             [path addLineToPoint :( CGPoint ) { 0, 0}];
             break;
+        case LBTagDirectionLeft:
         default:
+            [path moveToPoint :( CGPoint ) { angleWidth ,  0 }];
+            [path addLineToPoint :( CGPoint ) { 0, CGRectGetHeight(label.frame)/2.0}];
+            [path addLineToPoint :( CGPoint ) { angleWidth, CGRectGetHeight(label.frame)}];
+            [path addLineToPoint :( CGPoint ) { CGRectGetWidth(label.frame), CGRectGetHeight(label.frame)}];
+            [path addLineToPoint :( CGPoint ) { CGRectGetWidth(label.frame), 0}];
+            [path addLineToPoint :( CGPoint ) { angleWidth, 0}];
             break;
     }
-    
     //
     CAShapeLayer* mask = [CAShapeLayer layer];
     mask.path = path.CGPath ;

@@ -46,7 +46,6 @@
     tagView2.backgroundColor = [UIColor purpleColor];
     tagView2.circlrColor = [UIColor orangeColor];
     tagView2.circlrShadowColor = [UIColor blackColor];
-    
     //three
     LBTagView *tagView3 = _tags[2];
     tagView3.direction = LBTagDirectionRight;
