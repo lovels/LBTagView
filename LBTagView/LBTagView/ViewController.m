@@ -68,6 +68,10 @@
     tag.circlrColor = color;
     tag.circlrShadowColor = color;
     tag.backgroundColor =  color;
+    //
+    static int key = 0;
+    key == 0 ? (tag.direction = LBTagDirectionLeft,key++) : (tag.direction = LBTagDirectionRight,key--)
+    ;
 }
 
 @end

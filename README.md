@@ -4,7 +4,7 @@
 
 ### What
 
-LBTagView is useful to add tag to image or other views. It is intelligent, you can drag where you want.It’s easy to use wit h simple API.You can set its colors and font what you like.
+LBTagView is useful to add tag to image or other views. It is intelligent, you can drag where you want.It’s easy to use with simple API.You can set its colors and font what you like.
 
 ### Requirements
 
@@ -29,6 +29,9 @@ It is easy to use. You just need to creat a tagView ,set its text and add view y
 	//default [UIColor whiteColor]
 	@property (nonatomic, strong) UIColor *textColor;
 	
+	//default is LBTagDirectionLeft
+	@property (nonatomic, assign) LBTagDirection direction;
+	
 	//default [UIFont systemFontOfSize:12]
 	@property (nonatomic, strong) UIFont *font;
 	
@@ -52,4 +55,5 @@ For more information, you can download the zip and run the example.
 
 LBTagView is available under the MIT license. See the LICENSE file for more info.
 
-[image-1]:	http://ww2.sinaimg.cn/large/9f1201f5jw1ezy0tidf6ng20ag0ij4qp.gif
+[image-1]:	http://ww3.sinaimg.cn/large/9f1201f5gw1f069256ryjg209y0ddtvd.gif
+
