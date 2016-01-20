@@ -37,9 +37,11 @@
     //one
     LBTagView *tagView1 = _tags[0];
     tagView1.backgroundColor = [UIColor orangeColor];
+    tagView1.direction = LBTagDirectionRight;
     tagView1.canMove = NO;
     //two
     LBTagView *tagView2 = _tags[1];
+    tagView2.direction = LBTagDirectionLeft;
     tagView2.font = [UIFont systemFontOfSize:16];
     tagView2.backgroundColor = [UIColor purpleColor];
     tagView2.circlrColor = [UIColor orangeColor];
@@ -47,6 +49,7 @@
     
     //three
     LBTagView *tagView3 = _tags[2];
+    tagView3.direction = LBTagDirectionRight;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(changeTagViewStyle:)];
     tagView3.tapGestureRecognizer = tap;
     

@@ -55,6 +55,7 @@
     self.font = [UIFont systemFontOfSize:12];
     self.circlrColor = [UIColor colorWithRed:1 green:1 blue:1 alpha:0.8];
     self.circlrShadowColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7];
+    self.direction = LBTagDirectionLeft;
 }
 
 - (UILabel *)textLabel
@@ -76,12 +77,27 @@
     [label.layer.sublayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
     CGFloat angleWidth = 10;
     UIBezierPath  * path =  [ UIBezierPath  new ];
-    [path moveToPoint :( CGPoint ) { angleWidth ,  0 }];
-    [path addLineToPoint :( CGPoint ) { 0, CGRectGetHeight(label.frame)/2.0}];
-    [path addLineToPoint :( CGPoint ) { angleWidth, CGRectGetHeight(label.frame)}];
-    [path addLineToPoint :( CGPoint ) { CGRectGetWidth(label.frame), CGRectGetHeight(label.frame)}];
-    [path addLineToPoint :( CGPoint ) { CGRectGetWidth(label.frame), 0}];
-    [path addLineToPoint :( CGPoint ) { angleWidth, 0}];
+    switch (self.direction) {
+        case LBTagDirectionLeft:
+            [path moveToPoint :( CGPoint ) { angleWidth ,  0 }];
+            [path addLineToPoint :( CGPoint ) { 0, CGRectGetHeight(label.frame)/2.0}];
+            [path addLineToPoint :( CGPoint ) { angleWidth, CGRectGetHeight(label.frame)}];
+            [path addLineToPoint :( CGPoint ) { CGRectGetWidth(label.frame), CGRectGetHeight(label.frame)}];
+            [path addLineToPoint :( CGPoint ) { CGRectGetWidth(label.frame), 0}];
+            [path addLineToPoint :( CGPoint ) { angleWidth, 0}];
+            break;
+        case LBTagDirectionRight:
+            [path moveToPoint :( CGPoint ) { 0 ,  0 }];
+            [path addLineToPoint :( CGPoint ) { 0, CGRectGetHeight(label.frame)}];
+            [path addLineToPoint :( CGPoint ) { CGRectGetWidth(label.frame) - angleWidth, CGRectGetHeight(label.frame)}];
+            [path addLineToPoint :( CGPoint ) { CGRectGetWidth(label.frame), CGRectGetHeight(label.frame)/2.0}];
+            [path addLineToPoint :( CGPoint ) { CGRectGetWidth(label.frame) - angleWidth, 0}];
+            [path addLineToPoint :( CGPoint ) { 0, 0}];
+            break;
+        default:
+            break;
+    }
+    
     //
     CAShapeLayer* mask = [CAShapeLayer layer];
     mask.path = path.CGPath ;
@@ -149,9 +165,19 @@
 {
     //self.frame
     self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, rect.size.width + 4 *_circleSize.width, rect.size.height);
-    _circleView.center = ( CGPoint ) { 5 *_circleSize.width/2.0 ,  self.frame.size.height/2.0 };
-    _circleLayer.position = _circleView.center;
-    _textLabel.frame = CGRectMake(4 *_circleSize.width, 0, CGRectGetWidth(_textLabel.frame), CGRectGetHeight(_textLabel.frame));
+    switch (self.direction) {
+        case LBTagDirectionLeft:
+            _circleView.center = ( CGPoint ) { 5 *_circleSize.width/2.0 ,  self.frame.size.height/2.0 };
+            _circleLayer.position = _circleView.center;
+            _textLabel.frame = CGRectMake(4 *_circleSize.width, 0, CGRectGetWidth(_textLabel.frame), CGRectGetHeight(_textLabel.frame));
+            break;
+        case LBTagDirectionRight:
+            _textLabel.frame = CGRectMake(0, 0, CGRectGetWidth(_textLabel.frame), CGRectGetHeight(_textLabel.frame));
+            _circleView.center = ( CGPoint ) { CGRectGetWidth(_textLabel.frame) + 3 *_circleSize.width/2.0 ,  self.frame.size.height/2.0 };
+            _circleLayer.position = _circleView.center;
+            break;
+    }
+    
 }
 
 - (void)setTextColor:(UIColor *)textColor
@@ -195,10 +221,7 @@
 #pragma mark ----touch event
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    if (!_canMove) {
-        return;
-    }
-    if (touches.count > 1) {
+    if (!_canMove || touches.count > 1) {
         return;
     }
     UITouch *touch = [touches anyObject];
@@ -208,16 +231,21 @@
 
 - (void)touchesMoved:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    if (!_canMove) {
-        return;
-    }
-    if (touches.count > 1) {
+    if (!_canMove || touches.count > 1) {
         return;
     }
     UITouch *touch = [touches anyObject];
     CGPoint point = [touch locationInView:self.superview];
     self.center = CGPointMake(self.center.x + point.x - lastPoint.x, self.center.y + point.y - lastPoint.y);
     lastPoint = point;
+}
+
+- (void)setDirection:(LBTagDirection)direction
+{
+    _direction = direction;
+    [self triangle:_textLabel];
+    [self handelFrameWithRect:_textLabel.frame];
+    
 }
 
 @end

@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger,LBTagDirection)
+{
+    LBTagDirectionLeft,
+    LBTagDirectionRight
+};
+
 @interface LBTagView : UIView
 
 //is can be moved
@@ -18,6 +24,9 @@
 
 //default [UIColor whiteColor]
 @property (nonatomic, strong) UIColor *textColor;
+
+//default is LBTagDirectionLeft
+@property (nonatomic, assign) LBTagDirection direction;
 
 //default [UIFont systemFontOfSize:12]
 @property (nonatomic, strong) UIFont *font;
