@@ -13,30 +13,21 @@
     CGPoint lastPoint;
 }
 
-@property (nonatomic, strong) UILabel *textLabel;
-
 @property (nonatomic, assign) CGSize circleSize;//circle size
 
 @property (nonatomic, strong) UIView *circleView;
 
 @property (nonatomic, strong) CALayer *circleLayer;
 
+@property (nonatomic, strong) UILabel *textLabel;
+
 @end
 
 @implementation LBTagView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
-
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
-        //
         [self initialization];
     }
     return self;
@@ -44,7 +35,6 @@
 
 - (void)initialization
 {
-    //add subviews
     _circleSize = CGSizeMake(6, 6);
     _canMove= YES;
     [self addSubview:self.textLabel];
@@ -65,7 +55,6 @@
         _textLabel = ({
             UILabel *testView = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(self.frame), CGRectGetHeight(self.frame))];
             testView.textAlignment = NSTextAlignmentCenter;
-            [self triangle:testView];
             testView;
         });
     }
@@ -74,7 +63,7 @@
 
 - (void)triangle:(UILabel *)label
 {
-    [label.layer.sublayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
+    //[label.layer.sublayers makeObjectsPerformSelector:@selector(removeFromSuperlayer)];
     CGFloat angleWidth = 10;
     UIBezierPath  * path =  [ UIBezierPath  new ];
     switch (self.direction) {
@@ -117,7 +106,7 @@
     _circleView.layer.cornerRadius = _circleView.frame.size.width / 2;
     _circleView.layer.masksToBounds = YES;
     [self addSubview:_circleView];
-    //
+    
     _circleView.center = CGPointMake(10, CGRectGetHeight(self.frame)/2.0);
     _circleLayer.position = _circleView.center;
     
@@ -146,16 +135,15 @@
 
 - (void)setText:(NSString *)text
 {
+    
     _text = text;
     _textLabel.text = _text;
-    [_textLabel sizeToFit];
-    //textLabel.frame
-    CGRect rect = _textLabel.frame;
-    rect.size.height += 10;
-    rect.size.width += 30;
-    _textLabel.frame = rect;
-    [self triangle:_textLabel];
-    [self handelFrameWithRect:rect];
+    //    [_textLabel sizeToFit];
+    CGSize size = [text sizeWithAttributes:@{NSFontAttributeName: _textLabel.font}];
+    size.height += 10;
+    size.width += 30;
+    _textLabel.frame = CGRectMake(_textLabel.frame.origin.x, _textLabel.frame.origin.y, size.width, size.height);
+    [self handelFrameWithRect:_textLabel.frame];
 }
 
 //change frame
@@ -175,7 +163,7 @@
             _circleLayer.position = _circleView.center;
             break;
     }
-    
+    [self triangle:_textLabel];
 }
 
 - (void)setTextColor:(UIColor *)textColor
@@ -241,9 +229,8 @@
 - (void)setDirection:(LBTagDirection)direction
 {
     _direction = direction;
-    [self triangle:_textLabel];
     [self handelFrameWithRect:_textLabel.frame];
-    
 }
 
 @end
+
