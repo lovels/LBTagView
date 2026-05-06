@@ -38,16 +38,6 @@
                ReferencedContainer = "container:LBTagView.xcodeproj">
             </BuildableReference>
          </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1A837E4E1C45417900943228"
-               BuildableName = "LBTagViewUITests.xctest"
-               BlueprintName = "LBTagViewUITests"
-               ReferencedContainer = "container:LBTagView.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference

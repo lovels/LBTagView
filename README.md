@@ -1,59 +1,96 @@
 # LBTagView
 
-![gif][image-1]
+`LBTagView` is a small Objective-C view for adding draggable, pointer-style tags to images or other views.
 
-### What
+![LBTagView demo][image-1]
 
-LBTagView is useful to add tag to image or other views. It is intelligent, you can drag where you want.It’s easy to use with simple API.You can set its colors and font what you like.
+## Features
 
-### Requirements
+- Left- or right-facing tag pointer
+- Draggable by default, with a `canMove` switch for fixed labels
+- Custom text, font, text color, tag color, circle color, and pulse color
+- Tap gesture support for lightweight interactions
+- Source-compatible aliases for the historical `circlrColor` and `circlrShadowColor` API names
 
-iOS 7 and later ARC
+## Requirements
 
-### Usage
+- iOS 13.0 or later
+- Xcode with Objective-C and ARC support
 
-It is easy to use. You just need to creat a tagView ,set its text and add view you want,that’s all.
+## Usage
 
-	LBTagView *tag = [[LBTagView alloc] initWithFrame:CGRectMake(50, 300, 100, 100)];
-	tag.text = @"hello world";
-	[self.view addSubview:tag];
+```objc
+#import "LBTagView.h"
 
-#### Customization
+LBTagView *tagView = [[LBTagView alloc] initWithFrame:CGRectMake(50.0, 300.0, 0.0, 0.0)];
+tagView.text = @"hello world";
+tagView.direction = LBTagDirectionLeft;
+tagView.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.5];
+[self.view addSubview:tagView];
+```
 
-	// is can be moved
-	@property (nonatomic, assign) BOOL canMove;
-	
-	// text
-	@property (nonatomic, copy) NSString *text;
-	
-	// default [UIColor whiteColor]
-	@property (nonatomic, strong) UIColor *textColor;
-	
-	// default is LBTagDirectionLeft
-	@property (nonatomic, assign) LBTagDirection direction;
-	
-	// default [UIFont systemFontOfSize:12]
-	@property (nonatomic, strong) UIFont *font;
-	
-	// default [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5]
-	@property (nonatomic, strong) UIColor *backgroundColor;
-	
-	// default [UIColor colorWithRed:1 green:1 blue:1 alpha:0.8]
-	@property (nonatomic, strong) UIColor *circlrColor;
-	
-	// default [UIColor colorWithRed:0 green:0 blue:0 alpha:0.7]
-	@property (nonatomic, strong) UIColor *circlrShadowColor;
-	
-	// tap action
-	@property (nonatomic, strong) UITapGestureRecognizer *tapGestureRecognizer;
+## Customization
 
-### Example
+```objc
+tagView.canMove = NO;
+tagView.textColor = [UIColor whiteColor];
+tagView.font = [UIFont systemFontOfSize:14.0];
+tagView.circleColor = [UIColor whiteColor];
+tagView.circleShadowColor = [UIColor blackColor];
+tagView.direction = LBTagDirectionRight;
 
-For more information, you can download the zip and run the example.
+UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTagTap:)];
+tagView.tapGestureRecognizer = tap;
+```
 
-### License
+The older `circlrColor` and `circlrShadowColor` properties still work for existing integrations. New code should prefer `circleColor` and `circleShadowColor`.
 
-LBTagView is available under the MIT license. See the LICENSE file for more info.
+## Example App
 
-[image-1]:	http://ww3.sinaimg.cn/large/9f1201f5gw1f069256ryjg209y0ddtvd.gif
+Open `LBTagView/LBTagView.xcodeproj` and run the shared `LBTagView` scheme. The sample app shows fixed, draggable, left-facing, right-facing, and tappable tags.
 
+## Verification
+
+```sh
+xcodebuild build-for-testing \
+  -project LBTagView/LBTagView.xcodeproj \
+  -scheme LBTagView \
+  -destination 'generic/platform=iOS Simulator' \
+  -derivedDataPath /tmp/LBTagViewDerivedData \
+  CODE_SIGNING_ALLOWED=NO
+```
+
+To execute the unit tests, use a concrete installed simulator:
+
+```sh
+xcodebuild test \
+  -project LBTagView/LBTagView.xcodeproj \
+  -scheme LBTagView \
+  -destination 'platform=iOS Simulator,name=iPhone 15' \
+  -derivedDataPath /tmp/LBTagViewDerivedData
+```
+
+If your simulator name is different, replace the `-destination` value with one from:
+
+```sh
+xcodebuild -showdestinations -project LBTagView/LBTagView.xcodeproj -scheme LBTagView
+```
+
+## Maintainer Workflow
+
+This repository is being prepared for more regular open-source maintenance. Good Codex tasks for this project include:
+
+- reviewing pull requests that touch layout or gesture behavior
+- adding regression tests for rendering and sizing edge cases
+- modernizing distribution metadata while preserving Objective-C compatibility
+- checking security or supply-chain changes before releases
+
+## Contributing
+
+Issues and pull requests are welcome. Please keep changes focused, preserve compatibility with the public Objective-C API, and include tests when behavior changes.
+
+## License
+
+LBTagView is available under the MIT license. See `LICENSE` for details.
+
+[image-1]: http://ww3.sinaimg.cn/large/9f1201f5gw1f069256ryjg209y0ddtvd.gif
